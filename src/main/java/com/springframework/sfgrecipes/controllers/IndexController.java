@@ -1,36 +1,24 @@
 package com.springframework.sfgrecipes.controllers;
 
-import java.util.Optional;
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.springframework.sfgrecipes.model.Category;
-import com.springframework.sfgrecipes.model.UnitOfMeasurement;
-import com.springframework.sfgrecipes.model.repositories.CategoryRepository;
-import com.springframework.sfgrecipes.model.repositories.UnitOfMeasurementRepository;
+import com.springframework.sfgrecipes.service.RecipeService;
 
 @Controller
 public class IndexController {
 
-	private CategoryRepository categoryRepository;
-	private UnitOfMeasurementRepository unitOfMeasurementRepository;
+	private final RecipeService recipeService;
 	
-	
-	public IndexController(CategoryRepository categoryRepository,
-			UnitOfMeasurementRepository unitOfMeasurementRepository) {
-		this.categoryRepository = categoryRepository;
-		this.unitOfMeasurementRepository = unitOfMeasurementRepository;
+	public IndexController(RecipeService recipeService) {
+		this.recipeService = recipeService;
 	}
-
-
 	@RequestMapping({"", "/", "/index", "/index.html"})
-	public String getIndexPage() {
-		Optional<Category> optionalCategory = categoryRepository.findByDescription("American");
-		Optional<UnitOfMeasurement> OptionalUOM = unitOfMeasurementRepository.findByDescription("Tablespoon");
+	public String getIndexPage(Model model) {
 		
-		System.out.println("Cat ID is: " + optionalCategory.get().getId());
-		System.out.println("UOM ID is: " + OptionalUOM.get().getId());
+		model.addAttribute("recipes", recipeService.getRecipes());
+
 		return "index";
 	}
 }
