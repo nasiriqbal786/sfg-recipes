@@ -173,7 +173,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
-		recipeRepository.saveAll(getRecipes());
+		recipeRepository.saveAll(this.getRecipes());
 		
 	}
 }
