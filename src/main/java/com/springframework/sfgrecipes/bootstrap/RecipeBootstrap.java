@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -23,6 +25,10 @@ import com.springframework.sfgrecipes.model.repositories.CategoryRepository;
 import com.springframework.sfgrecipes.model.repositories.RecipeRepository;
 import com.springframework.sfgrecipes.model.repositories.UnitOfMeasurementRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
+
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -171,8 +177,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 
 
+	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
+		log.info("loading data at startup...");
 		recipeRepository.saveAll(this.getRecipes());
 		
 	}
