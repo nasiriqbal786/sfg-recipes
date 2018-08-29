@@ -10,7 +10,7 @@ import javax.persistence.ManyToMany;
 
 import lombok.Data;
 
-@Data
+//@Data
 @Entity
 public class Category {
 
