@@ -14,7 +14,6 @@ import com.springframework.sfgrecipes.model.repositories.RecipeRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
@@ -37,7 +36,6 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	@Override
 	public Recipe findById(Long id) {
-		log.info("Recipe ID: " + id);
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 		if(!recipeOptional.isPresent()) {
 			throw new RuntimeException("Recipe Not Found");
@@ -51,7 +49,6 @@ public class RecipeServiceImpl implements RecipeService {
 		Recipe detachedRecipe = recipeCommandToRecipe.convert(recipe);
 		
 		Recipe savedRecipe = recipeRepository.save(detachedRecipe);
-		log.debug("Saved Recipe ID: " + savedRecipe.getId());
 		return recipeToRecipeCommand.convert(savedRecipe);
 	}
 

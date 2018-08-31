@@ -1,16 +1,21 @@
 package com.springframework.sfgrecipes.controllers;
 
+import java.util.Set;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.springframework.sfgrecipes.SfgRecipesAppApplication;
+import com.springframework.sfgrecipes.model.Recipe;
 import com.springframework.sfgrecipes.service.RecipeService;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 public class IndexController {
+
+	private static final Logger logger = LogManager.getLogger(SfgRecipesAppApplication.class);
 
 	private final RecipeService recipeService;
 	
@@ -19,10 +24,10 @@ public class IndexController {
 	}
 	@RequestMapping({"", "/", "/index", "/index.html"})
 	public String getIndexPage(Model model) {
+		Set<Recipe> recipes = recipeService.getRecipes();
+		model.addAttribute("recipes", recipes);
 		
-		log.info("Accessing index controller...");
-		
-		model.addAttribute("recipes", recipeService.getRecipes());
+		logger.info("Total " + recipes.size() + " recipes found.");
 
 		return "index";
 	}

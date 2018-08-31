@@ -28,7 +28,6 @@ import com.springframework.sfgrecipes.model.repositories.UnitOfMeasurementReposi
 import lombok.extern.slf4j.Slf4j;
 
 
-@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -181,7 +180,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 
-		log.info("loading data at startup...");
 		recipeRepository.saveAll(this.getRecipes());
 		
 	}
