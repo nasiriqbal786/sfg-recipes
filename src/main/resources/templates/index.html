@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <title>Recipes Home</title>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"
 				crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-	crossorigin="anonymous"></script>
+				
+	<!-- <script src="/webjars/jquery/3.3.1/jquery.min.js"></script> -->
+	<script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -30,6 +31,7 @@
 							<tr th:each="recipe: ${recipes}">
 								<td th:text="${recipe.id}">123</td>
 								<td th:text="${recipe.description}">Description</td>
+								<td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
 							</tr>
 						</table>
 					</div>
