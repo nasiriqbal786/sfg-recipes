@@ -25,8 +25,6 @@ import com.springframework.sfgrecipes.model.repositories.CategoryRepository;
 import com.springframework.sfgrecipes.model.repositories.RecipeRepository;
 import com.springframework.sfgrecipes.model.repositories.UnitOfMeasurementRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {

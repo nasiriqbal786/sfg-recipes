@@ -12,8 +12,6 @@ import com.springframework.sfgrecipes.converters.RecipeToRecipeCommand;
 import com.springframework.sfgrecipes.model.Recipe;
 import com.springframework.sfgrecipes.model.repositories.RecipeRepository;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
