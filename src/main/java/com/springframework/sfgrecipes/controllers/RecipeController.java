@@ -1,5 +1,7 @@
 package com.springframework.sfgrecipes.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,24 +16,35 @@ import com.springframework.sfgrecipes.service.RecipeService;
 public class RecipeController {
 
 	private final RecipeService recipeService;
+	private static final Logger logger = LogManager.getLogger(RecipeController.class);
 
 	public RecipeController(RecipeService recipeService) {
 		this.recipeService = recipeService;
 	}
 	
-	@RequestMapping("/recipe/show/{id}")
+	@RequestMapping("/recipe/{id}/show")
 	public String showById(@PathVariable String id, Model model) {
 		
-		model.addAttribute("recipe", recipeService.findById(new Long(id)));
+		RecipeCommand command = recipeService.findRecipeCommandById(new Long(id));
+		
+		model.addAttribute("recipe", command);
+		
+		logger.info("Finished ShowById for Recipe ID: " + id);
 		
 		return "recipe/show";
 	}
 	
 	
-	@RequestMapping("/recipe/edit/{id}")
-	public String editRecipe(@PathVariable String id, Model model) {
+	@RequestMapping("/recipe/{id}/update")
+	public String updateRecipe(@PathVariable String id, Model model) {
+		RecipeCommand recipe = recipeService.findRecipeCommandById(new Long(id));
+		model.addAttribute("recipe", recipe);
 		
-		model.addAttribute("recipe", recipeService.findById(new Long(id)));
+		if(recipe != null) {
+			logger.info("Finished ShowById for Recipe ID: " + id);
+		} else {
+			System.out.println("Null Recipe for ID: " + id);
+		}
 		
 		return "recipe/recipeform";
 	}
@@ -48,6 +61,16 @@ public class RecipeController {
 	@RequestMapping("/recipe")
 	public String saveOrUpdate(@ModelAttribute RecipeCommand command) {
 		RecipeCommand savedCommand = recipeService.saveRecipeCommand(command);
-		return "redirect:/recipe/show/" + savedCommand.getId();
+		return "redirect:/recipe/" + savedCommand.getId() + "/show";
+	}
+	
+	@RequestMapping("/recipe/{id}/delete")
+	public String deleteRecipe(@PathVariable Long id) {
+		
+		logger.info("Deleting Recipe - ID: " + id);
+		
+		recipeService.deleteById(id);
+		
+		return "redirect:/";
 	}
 }

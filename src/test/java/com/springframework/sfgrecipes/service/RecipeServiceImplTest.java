@@ -71,4 +71,13 @@ public class RecipeServiceImplTest {
 		verify(recipeRepository, never()).findAll();
 	}
 	
+	@Test
+	public void testDeleteById() throws Exception {
+		Long idToDelete = Long.valueOf(2L);
+		recipeService.deleteById(idToDelete);
+		
+		//no when required as return type is void
+		verify(recipeRepository, times(1)).deleteById(idToDelete);
+	}
+	
 }

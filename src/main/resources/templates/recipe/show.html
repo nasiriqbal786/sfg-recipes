@@ -75,10 +75,13 @@
 	                    </div>
 	                </div>
 	                <div class="panel panel-primary">
-	                    <div class="panel-heading">
+	                    <div class="panel-heading" style="overflow:auto">
 	                        <h1 class="panel-title" >Ingredients</h1>
+							<div class="pull-right">
+								<a class="btn-sm btn-success" th:href="${'/recipe/' + recipe.id + '/ingredients/'}">View</a>
+							</div>
 	                    </div>
-	                    <div class="panel-body">
+					    <div class="panel-body">
 	                        <div class="row">
 	                            <div class="col-md-12">
 	                                <ul>

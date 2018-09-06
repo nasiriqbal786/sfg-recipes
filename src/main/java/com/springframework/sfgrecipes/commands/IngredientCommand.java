@@ -6,6 +6,7 @@ public class IngredientCommand {
 
 	private Long id;
 	private String description;
+	private Long recipeId;
 	private BigDecimal amount;
 	private UnitOfMeasurementCommand uom;
 	
@@ -32,6 +33,12 @@ public class IngredientCommand {
 	}
 	public void setUom(UnitOfMeasurementCommand uom) {
 		this.uom = uom;
+	}
+	public Long getRecipeId() {
+		return recipeId;
+	}
+	public void setRecipeId(Long recipeId) {
+		this.recipeId = recipeId;
 	}
 	
 	

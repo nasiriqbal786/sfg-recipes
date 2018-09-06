@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.springframework.sfgrecipes.commands.RecipeCommand;
@@ -38,7 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
 		if(!recipeOptional.isPresent()) {
 			throw new RuntimeException("Recipe Not Found");
 		}
-		
+		System.out.println("In Service Impl: Recipe ID: " + id);
 		return recipeOptional.get();
 	}
 
@@ -49,5 +51,19 @@ public class RecipeServiceImpl implements RecipeService {
 		Recipe savedRecipe = recipeRepository.save(detachedRecipe);
 		return recipeToRecipeCommand.convert(savedRecipe);
 	}
+
+	@Override
+	@Transactional
+	public RecipeCommand findRecipeCommandById(Long id) {
+		return recipeToRecipeCommand.convert(findById(id));
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		recipeRepository.deleteById(id);
+		
+	}
+	
+	
 
 }
